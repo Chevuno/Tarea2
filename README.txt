@@ -54,3 +54,16 @@ Este programa permite cargar una prueba desde un archivo, mostrar una pregunta a
 
 ----------
 
+Funcionalidad de revisión de respuestas:
+
+Después de terminar la prueba y ver el resumen de resultados, se incluye un botón "Revisar respuestas" que permite revisar cada pregunta individualmente.
+
+En esa sección se muestra:
+- La pregunta.
+- La respuesta seleccionada por el usuario.
+- La respuesta correcta.
+- Si la respuesta fue correcta o incorrecta.
+
+Además, se puede navegar entre las preguntas con "Anterior" y "Siguiente", y volver al resumen con un botón.
+
+----------

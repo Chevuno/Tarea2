@@ -56,7 +56,7 @@ public class PreguntaPanel extends JPanel {
             } else {
                 // Mostrar resumen final
                 padre.getContentPane().removeAll();
-                padre.add(new ResultadoResumenPanel(items, respuestasUsuario));
+                padre.add(new ResultadoResumenPanel(items, respuestasUsuario, padre));
                 padre.revalidate();
                 padre.repaint();
             }

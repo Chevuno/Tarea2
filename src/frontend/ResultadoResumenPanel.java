@@ -4,12 +4,20 @@ import backend.Item;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ResultadoResumenPanel extends JPanel {
+    private List<Item> items;
+    private String[] respuestasUsuario;
+    private JFrame padre;
 
-    public ResultadoResumenPanel(List<Item> items, String[] respuestasUsuario) {
+    public ResultadoResumenPanel(List<Item> items, String[] respuestasUsuario, JFrame padre) {
+        this.items = items;
+        this.respuestasUsuario = respuestasUsuario;
+        this.padre = padre;
+
         setLayout(new BorderLayout());
 
         JLabel titulo = new JLabel("Resumen de Resultados", SwingConstants.CENTER);
@@ -28,12 +36,10 @@ public class ResultadoResumenPanel extends JPanel {
 
             boolean correcta = item.respuestaCorrecta.equalsIgnoreCase(respuesta);
 
-            // Por tipo
-            porTipo.putIfAbsent(item.tipo, new int[2]); // [correctas, total]
+            porTipo.putIfAbsent(item.tipo, new int[2]);
             porTipo.get(item.tipo)[1]++;
             if (correcta) porTipo.get(item.tipo)[0]++;
 
-            // Por nivel Bloom
             porBloom.putIfAbsent(item.nivelBloom, new int[2]);
             porBloom.get(item.nivelBloom)[1]++;
             if (correcta) porBloom.get(item.nivelBloom)[0]++;
@@ -56,7 +62,18 @@ public class ResultadoResumenPanel extends JPanel {
         }
 
         resultadoArea.setText(sb.toString());
-
         add(new JScrollPane(resultadoArea), BorderLayout.CENTER);
+
+        JButton btnRevisar = new JButton("Revisar respuestas");
+        btnRevisar.addActionListener(e -> {
+            padre.getContentPane().removeAll();
+            padre.add(new RevisarPanel(items, respuestasUsuario, padre));
+            padre.revalidate();
+            padre.repaint();
+        });
+
+        JPanel panelBoton = new JPanel();
+        panelBoton.add(btnRevisar);
+        add(panelBoton, BorderLayout.SOUTH);
     }
 }
